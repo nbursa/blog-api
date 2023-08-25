@@ -7,47 +7,35 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import data, { Report } from './data';
+import { Report } from './data';
+import { AppService } from './app.service';
 
 @Controller('api')
 export class AppController {
+  constructor(private readonly appService: AppService) {}
+
   @Get()
   getAllReports(): Report[] {
-    return data;
+    return this.appService.getAllReports();
   }
 
   @Get(':id')
   getReportById(@Param('id') id: string): Report {
-    return data.find((r) => r.id === parseInt(id, 10));
+    return this.appService.getReportById(id);
   }
 
   @Post()
   createReport(@Body() body: { title: string; description: string }): string {
-    try {
-      data.push({
-        ...body,
-        id: data.length + 1,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      });
-      return 'Report created successfully';
-    } catch (error) {
-      return 'Something went wrong, please try again.';
-      // throw new Error('Something went wrong, please try again.');
-    }
+    return this.appService.createReport(body);
   }
 
   @Put(':updateId')
-  updateReport(@Param('update') report: Report): Report[] {
-    const index = data.findIndex((r) => r.id === report.id);
-    data[index] = { ...report, updatedAt: new Date().toISOString() };
-    return data;
+  updateReport(@Param('update') report: Report): Report {
+    return this.appService.updateReport(report);
   }
 
   @Delete(':deleteId')
-  deleteReport(@Param('reportId') deleteId: string): Report[] {
-    const index = data.findIndex((r) => r.id === parseInt(deleteId, 10));
-    data.splice(index, 1);
-    return data;
+  deleteReport(@Param('reportId') deleteId: string): string {
+    return this.appService.deleteReport(deleteId);
   }
 }
