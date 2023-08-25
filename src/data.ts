@@ -2,10 +2,13 @@ export interface Report {
   id: number;
   title: string;
   description: string;
-  createdAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-const data = [
+const data: Report[] = [];
+
+const mockData: Report[] = [
   {
     id: 1,
     title: 'Monthly Sales Report',
@@ -128,5 +131,7 @@ const data = [
     createdAt: '2023-09-05T08:00:00Z',
   },
 ];
+
+if (data.length === 0) data.push(...mockData);
 
 export default data;

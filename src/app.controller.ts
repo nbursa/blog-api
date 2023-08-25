@@ -1,7 +1,15 @@
-import { Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import data, { Report } from './data';
 
-@Controller('reports')
+@Controller('api')
 export class AppController {
   @Get()
   getAllReports(): Report[] {
@@ -14,15 +22,25 @@ export class AppController {
   }
 
   @Post()
-  createReport(@Param('report') report: Report): Report[] {
-    data.push({ ...report, id: data.length + 1 });
-    return data;
+  createReport(@Body() body: { title: string; description: string }): string {
+    try {
+      data.push({
+        ...body,
+        id: data.length + 1,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
+      return 'Report created successfully';
+    } catch (error) {
+      return 'Something went wrong, please try again.';
+      // throw new Error('Something went wrong, please try again.');
+    }
   }
 
   @Put(':updateId')
   updateReport(@Param('update') report: Report): Report[] {
     const index = data.findIndex((r) => r.id === report.id);
-    data[index] = report;
+    data[index] = { ...report, updatedAt: new Date().toISOString() };
     return data;
   }
 
