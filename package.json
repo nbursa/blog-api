@@ -1,5 +1,5 @@
 {
-  "name": "untitled1",
+  "name": "blog-api",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -9,7 +9,7 @@
     "build": "nest build",
     "heroku-postbuild": "npm run build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "npm install && npm run build && node dist/main",
+    "start": "node dist/main",
     "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "nest start --no-colors",

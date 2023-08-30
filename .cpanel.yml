@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/nenadbur/blogapi.nenadbursac.com
+    - /usr/local/cpanel/3rdparty/bin/git clone https://github.com/nbursa/blog-be $DEPLOYPATH
+    - /usr/local/cpanel/3rdparty/bin/git --git-dir=$DEPLOYPATH/.git --work-tree=$DEPLOYPATH checkout -f
+    - /home/nenadbur/.nvm/versions/node/v16.13.0/bin/npm --prefix $DEPLOYPATH install
