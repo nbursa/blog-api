@@ -9,7 +9,7 @@
     "build": "nest build",
     "heroku-postbuild": "npm run build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "nest build && start",
     "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "nest start --no-colors",
