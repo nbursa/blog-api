@@ -34,7 +34,7 @@ export class BlogController {
 
   @Put(':id')
   async updatePost(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body('title') title: string,
     @Body('content') content: string,
   ): Promise<BlogPost> {
@@ -42,7 +42,7 @@ export class BlogController {
   }
 
   @Delete(':id')
-  async deletePost(@Param('id') id: number): Promise<string> {
+  async deletePost(@Param('id') id: string): Promise<string> {
     return this.blogService.deletePost(id);
   }
 }

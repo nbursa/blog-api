@@ -37,7 +37,7 @@ export class BlogService implements OnModuleInit {
   }
 
   async updatePost(
-    id: number,
+    id: string,
     title: string,
     content: string,
   ): Promise<BlogPost> {
@@ -48,17 +48,18 @@ export class BlogService implements OnModuleInit {
 
     if (title) post.title = title;
     if (content) post.content = content;
+    post.updatedAt = new Date();
 
     return post.save();
   }
 
-  async deletePost(id: number): Promise<string> {
+  async deletePost(id: string): Promise<string> {
     const post = await this.blogModel.findById(id).exec();
     if (!post) {
       throw new Error('Post not found');
     }
 
-    await (post as any).remove();
+    await this.blogModel.deleteOne({ _id: id });
     return 'Blog post deleted successfully';
   }
 }

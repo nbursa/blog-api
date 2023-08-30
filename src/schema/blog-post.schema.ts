@@ -6,7 +6,7 @@ export type BlogPostDocument = BlogPost & Document;
 @Schema()
 export class BlogPost {
   @Prop()
-  id: number;
+  id: string;
 
   @Prop()
   title: string;
@@ -14,10 +14,10 @@ export class BlogPost {
   @Prop()
   content: string;
 
-  @Prop()
+  @Prop({ default: Date.now() })
   createdAt: Date;
 
-  @Prop()
+  @Prop({ default: Date.now() })
   updatedAt: Date;
 }
 
