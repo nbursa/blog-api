@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as mongoose from 'mongoose';
-import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
+// import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 // const corsConfig: CorsOptions = {
 //   origin: 'http://localhost:5173',
