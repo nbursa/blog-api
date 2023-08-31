@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model } from 'mongoose';
-import { BlogPost, BlogPostDocument } from './schema/blog-post.schema';
+import { BlogPost, BlogPostDocument } from '../../schema/blog-post.schema';
 
 @Injectable()
 export class BlogService implements OnModuleInit {

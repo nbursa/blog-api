@@ -7,10 +7,10 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { BlogPost } from './schema/blog-post.schema';
+import { BlogPost } from '../../schema/blog-post.schema';
 import { BlogService } from './blog.service';
 
-@Controller('api/blog')
+@Controller('blog')
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
