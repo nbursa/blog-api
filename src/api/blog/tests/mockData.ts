@@ -1,5 +1,5 @@
-interface MockBlogPost {
-  id: number;
+export interface MockBlogPost {
+  id: string;
   title: string;
   content: string;
   createdAt: Date;

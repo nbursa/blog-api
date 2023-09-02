@@ -23,6 +23,10 @@ export class UserService {
     return this.userModel.find({ usersFilterQuery });
   }
 
+  async findAll(): Promise<User[]> {
+    return this.userModel.find();
+  }
+
   async create(user: any): Promise<any> {
     this.logger.log('Creating user.');
     if (user.facebookId || user.googleId) return this.userModel.create(user);
