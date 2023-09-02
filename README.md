@@ -1,6 +1,6 @@
 # Blog API
 
-Welcome to the Blog API! This application provides a backend for managing blog posts and user authentication. It utilizes the Nest.js framework and MongoDB for data storage.
+This application provides a backend for managing blog posts and user authentication. It utilizes the Nest.js framework and MongoDB for data storage.
 
 ## Table of Contents
 
