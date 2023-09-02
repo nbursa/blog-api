@@ -39,6 +39,7 @@ To get started with the Blog API, follow the instructions below to set up the pr
 1. Clone this repository to your local machine.
 2. Navigate to the project directory using your command line or terminal.
 3. Install project dependencies:
+
    ```
    npm install
    ```
