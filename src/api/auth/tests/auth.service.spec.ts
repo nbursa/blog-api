@@ -16,11 +16,11 @@ describe('AuthService', () => {
         AuthService,
         {
           provide: JwtService,
-          useValue: new JwtServiceMock(), // Use instance of JwtServiceMock
+          useValue: new JwtServiceMock(),
         },
         {
           provide: UserService,
-          useValue: new UserServiceMock(), // Use instance of UserServiceMock
+          useValue: new UserServiceMock(),
         },
       ],
     }).compile();
@@ -34,8 +34,10 @@ describe('AuthService', () => {
 
   describe('validateUser', () => {
     it('should throw an exception if the user does not exist', async () => {
-      const userServiceMock = new UserServiceMock(); // Create instance
-      userServiceMock.findOne = jest.fn().mockReturnValue(null); // Mock method
+      const userServiceMock = new UserServiceMock();
+      userServiceMock.findOne = jest.fn().mockReturnValue(null);
+
+      console.log('userServiceMock', userServiceMock);
 
       try {
         await service.validateUser('test@example.com', 'somepassword');
@@ -49,9 +51,9 @@ describe('AuthService', () => {
         email: 'test@example.com',
         password: 'hashed_password',
       };
-      const userServiceMock = new UserServiceMock(); // Create instance
-      userServiceMock.findOne = jest.fn().mockReturnValue(mockUser); // Mock method
-      userServiceMock.comparePasswords = jest.fn().mockReturnValue(false); // Mock method
+      const userServiceMock = new UserServiceMock();
+      userServiceMock.findOne = jest.fn().mockReturnValue(mockUser);
+      userServiceMock.comparePasswords = jest.fn().mockReturnValue(false);
 
       try {
         await service.validateUser('test@example.com', 'invalidpassword');
@@ -65,9 +67,9 @@ describe('AuthService', () => {
         email: 'test@example.com',
         password: 'hashed_password',
       };
-      const userServiceMock = new UserServiceMock(); // Create instance
-      userServiceMock.findOne = jest.fn().mockReturnValue(mockUser); // Mock method
-      userServiceMock.comparePasswords = jest.fn().mockReturnValue(true); // Mock method
+      const userServiceMock = new UserServiceMock();
+      userServiceMock.findOne = jest.fn().mockReturnValue(mockUser);
+      userServiceMock.comparePasswords = jest.fn().mockReturnValue(true);
 
       const user = await service.validateUser(
         'test@example.com',
@@ -84,7 +86,9 @@ describe('AuthService', () => {
 
       const result = service.generateJwtToken({ email: 'test@example.com' });
 
-      expect(result).toEqual({ access_token: 'mocked_jwt_token' });
+      expect(result).toEqual(
+        Promise.resolve({ access_token: 'mocked_jwt_token' }),
+      );
     });
   });
 });

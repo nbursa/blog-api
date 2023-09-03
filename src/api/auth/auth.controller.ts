@@ -9,6 +9,7 @@ import {
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { User } from '../../schema/user.schema';
 
 @Controller('auth')
 export class AuthController {
@@ -19,9 +20,12 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
-  async login(@Request() req): Promise<any> {
+  async login(
+    @Request() req: { user: User },
+  ): Promise<{ access_token: string; user: User }> {
     try {
-      return await this.authService.generateJwtToken(req.user);
+      const accessToken = await this.authService.generateJwtToken(req.user);
+      return { access_token: accessToken, user: req.user };
     } catch (error) {
       throw error;
     }
@@ -29,7 +33,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  async getUser(@Request() req): Promise<any> {
+  async getUser(@Request() req: { user: User }): Promise<User> {
     return req.user;
   }
 }

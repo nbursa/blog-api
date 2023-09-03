@@ -8,10 +8,14 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { UserService } from '../user/user.service';
+import { config } from 'dotenv';
+config();
 
 interface JwtPayload {
   email: string;
 }
+
+const jwtSecret = process.env.JWT_SECRET as string;
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -24,7 +28,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET,
+      secretOrKey: jwtSecret,
     });
     this.logger = new Logger(JwtStrategy.name);
   }

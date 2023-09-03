@@ -27,18 +27,16 @@ export class AuthService {
     return user;
   }
 
-  async generateJwtToken(user: any) {
+  async generateJwtToken(user: any): Promise<string> {
     const payload = {
       email: user.email,
     };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+    return this.jwtService.sign(payload);
   }
 
   async getHashedPassword(password: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      bcrypt.hash(password, 10, (err, hash) => {
+      bcrypt.hash(password, 10, (err: Error, hash: unknown) => {
         if (err) {
           reject(err);
         }
@@ -53,10 +51,10 @@ export class AuthService {
   ): Promise<any> {
     return bcrypt
       .compare(password, hashedPassword)
-      .then((isMatch) => {
+      .then((isMatch: boolean) => {
         if (isMatch) return true;
         return false;
       })
-      .catch((err) => err);
+      .catch((err: Error) => err);
   }
 }

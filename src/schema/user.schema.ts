@@ -4,16 +4,16 @@ import { Document } from 'mongoose';
 @Schema()
 export class User {
   @Prop()
-  firstName: string;
-
-  @Prop()
-  lastName: string;
+  name: string;
 
   @Prop({ lowercase: true, unique: true })
   email: string;
 
   @Prop({ select: false })
   password: string;
+
+  @Prop({ default: false })
+  role: string;
 }
 
 export type UserDocument = User & Document;
