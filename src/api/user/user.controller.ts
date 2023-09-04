@@ -1,4 +1,5 @@
 import {
+  Body,
   ConflictException,
   Controller,
   Logger,
@@ -16,19 +17,38 @@ export class UserController {
   }
 
   @Post('create')
-  async create(@Request() req): Promise<User> {
-    const newUser = req.body;
+  async create(@Body() newUser: User): Promise<{
+    user: User;
+    token: string
+  }> {
     try {
       const query = { email: newUser.email };
-      const isUser = await this.userService.findOne(query);
-      if (isUser) {
-        throw new ConflictException('User Already Exist');
+      const existingUser = await this.userService.findOne(query);
+      if (existingUser) {
+        throw new ConflictException('User Already Exists');
       } else {
         return await this.userService.create(newUser);
       }
-    } catch (err) {
-      this.logger.error('Something went wrong in signup:', err);
-      throw err;
+    } catch (error) {
+      this.logger.error('Something went wrong in signup:', error);
+      throw error;
     }
   }
+
+  // @Post('create')
+  // async create(@Request() req): Promise<User> {
+  //   const newUser = req.body;
+  //   try {
+  //     const query = { email: newUser.email };
+  //     const isUser = await this.userService.findOne(query);
+  //     if (isUser) {
+  //       throw new ConflictException('User Already Exist');
+  //     } else {
+  //       return await this.userService.create(newUser);
+  //     }
+  //   } catch (err) {
+  //     this.logger.error('Something went wrong in signup:', err);
+  //     throw err;
+  //   }
+  // }
 }
