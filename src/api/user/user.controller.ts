@@ -1,7 +1,7 @@
 import {
   Body,
   ConflictException,
-  Controller,
+  Controller, Get,
   Logger,
   Post,
   Request,
@@ -31,6 +31,16 @@ export class UserController {
       }
     } catch (error) {
       this.logger.error('Something went wrong in signup:', error);
+      throw error;
+    }
+  }
+
+  @Get('all')
+  async getAllUsers(): Promise<User[]> {
+    try {
+      return await this.userService.findAll();
+    } catch (error) {
+      this.logger.error('Something went wrong:', error);
       throw error;
     }
   }

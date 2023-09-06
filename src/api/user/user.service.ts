@@ -1,13 +1,8 @@
-import {
-  forwardRef,
-  Inject,
-  Injectable,
-  Logger
-} from '@nestjs/common';
-import {InjectModel} from '@nestjs/mongoose';
-import {FilterQuery, Model} from 'mongoose';
-import {User, UserDocument} from '../../schema/user.schema';
-import {AuthService} from '../auth/auth.service';
+import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { FilterQuery, Model } from 'mongoose';
+import { User, UserDocument } from '../../schema/user.schema';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UserService {
@@ -28,37 +23,13 @@ export class UserService {
     return this.userModel.find(usersFilterQuery);
   }
 
+  // async findAll(): Promise<User[]> {
+  //   return this.userModel.find();
+  // }
   async findAll(): Promise<User[]> {
     return this.userModel.find();
   }
 
-  // async create(user: User): Promise<User> {
-  //   this.logger.log('Creating user.');
-  //   // if (user.facebookId || user.googleId) return this.userModel.create(user);
-  //
-  //   const hashedPassword = await this.authService.getHashedPassword(
-  //     user.password,
-  //   );
-  //   user.password = hashedPassword;
-  //   const newUser = new this.userModel(user);
-  //   return newUser.save();
-  // }
-  // async create(user: User): Promise<{ user: User; token: string }> {
-  //   this.logger.log('Creating user.');
-  //
-  //   user.password = await this.authService.getHashedPassword(
-  //     user.password,
-  //   );
-  //   const newUser = new this.userModel(user);
-  //   const savedUser = await newUser.save();
-  //
-  //   const token = this.authService.generateToken(savedUser); // Generate token using your AuthService
-  //
-  //   return {
-  //     user: savedUser.toObject(),
-  //     token,
-  //   };
-  // }
   async create(user: User): Promise<{ user: User; token: string }> {
     user.password = await this.authService.getHashedPassword(user.password);
     const newUser = new this.userModel(user);
