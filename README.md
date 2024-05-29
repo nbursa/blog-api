@@ -1,4 +1,4 @@
-[https://blog.nenadbursac.com/](Demo)
+[Demo](https://blog.nenadbursac.com)
 
 # Blog API
 
